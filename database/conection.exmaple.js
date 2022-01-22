@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
-const db = new Sequelize("5vEW4JkzKO", "5vEW4JkzKO", "vkq3asNhaG", {
-  host: "remotemysql.com",
+const db = new Sequelize("database", "username", "password", {
+  host: "your host",
   dialect: "mysql",
   port: 3306,
 });
