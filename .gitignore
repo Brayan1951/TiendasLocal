@@ -1,2 +1,2 @@
 node_modules/
-database/conectionSql.js
+./database/conectionSql.js
