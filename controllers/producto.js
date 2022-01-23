@@ -48,8 +48,28 @@ const updateProducto = async (req = request, res = response) => {
   }
 };
 
+const deleteProducto = async (req = request, res = response) => {
+  const { id } = req.params;
+  try {
+    const producto = await Producto.findByPk(id);
+    if (!producto) {
+      return res.status(400).json({
+        msg: "No existe un producto con el id " + id,
+      });
+    }
+    await producto.destroy();
+    res.json({ msg: "producto eliminado con el id " + id });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Hable con el administrado",
+    });
+  }
+};
+
 module.exports = {
   getProductos,
   createProducto,
   updateProducto,
+  deleteProducto,
 };
