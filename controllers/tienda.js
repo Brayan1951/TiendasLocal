@@ -1,11 +1,14 @@
 const { request, response } = require("express");
+const Producto = require("../models/Productos");
 
-const Tiendas = require("../models/Tienda");
+const Tienda = require("../models/Tienda");
 
 const getTiendas = async (req = request, res = response) => {
-  const tiendas = await Tiendas.findAll();
+  const tiendas = await Tienda.findAll({
+    include: [{ model: Producto }],
+  });
 
-  console.log(tiendas);
+  // console.log(tiendas);
   res.json({ tiendas });
 };
 

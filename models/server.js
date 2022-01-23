@@ -12,6 +12,7 @@ class Server {
 
     this.apiPaths = {
       tiendas: "/api/tiendas",
+      productos: "/api/productos",
     };
 
     // middlewares
@@ -41,6 +42,7 @@ class Server {
 
   routes() {
     this.app.use(this.apiPaths.tiendas, require("../routes/tiendas"));
+    this.app.use(this.apiPaths.productos, require("../routes/productos"));
   }
 
   listen() {

@@ -2,7 +2,9 @@ const { DataTypes } = require("sequelize");
 
 const db = require("../database/conectionSql");
 
-const Tiendas = db.define("Tiendas", {
+const Producto = require("./Productos");
+
+const Tienda = db.define("Tienda", {
   nombre: {
     type: DataTypes.STRING,
   },
@@ -20,4 +22,4 @@ const Tiendas = db.define("Tiendas", {
   },
 });
 
-module.exports = Tiendas;
+module.exports = Tienda;
