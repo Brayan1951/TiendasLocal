@@ -20,6 +20,9 @@ const Tienda = db.define("Tienda", {
   estado: {
     type: DataTypes.BOOLEAN,
   },
+  img: {
+    type: DataTypes.STRING,
+  },
 });
 
 module.exports = Tienda;

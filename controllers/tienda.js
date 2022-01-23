@@ -13,13 +13,14 @@ const getTiendas = async (req = request, res = response) => {
 };
 
 const createTienda = async (req = request, res = response) => {
-  const { nombre, direccion, referencia, jefe, estado = true } = req.body;
+  const { nombre, direccion, referencia, jefe, img, estado = true } = req.body;
   try {
     const data = {
       nombre,
       direccion,
       referencia,
       jefe,
+      img,
       estado,
     };
     const tiendadb = await Tienda.create(data);
