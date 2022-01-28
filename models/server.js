@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const db = require("../database/conectionSql");
+const { dbConnection } = require("../database/conctionMongo");
 
 class Server {
   constructor() {
@@ -13,22 +14,30 @@ class Server {
     this.apiPaths = {
       tiendas: "/api/tiendas",
       productos: "/api/productos",
+      usuarios: "/api/usuarios",
+      auth: "/api/auth",
     };
 
     // middlewares
-    this.dbConection();
+    // this.dbConectionSQL();
+    this.conectarMongoDB();
     this.middleware();
+
     // Rutas
     this.routes();
   }
+  // Conection con SQl
+  // async dbConectionSQL() {
+  //   try {
+  //     await db.authenticate();
+  //     console.log("database online !!! :D");
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
 
-  async dbConection() {
-    try {
-      await db.authenticate();
-      console.log("database online !!! :D");
-    } catch (error) {
-      throw new Error(error);
-    }
+  async conectarMongoDB() {
+    await dbConnection();
   }
 
   middleware() {
@@ -43,6 +52,8 @@ class Server {
   routes() {
     this.app.use(this.apiPaths.tiendas, require("../routes/tiendas"));
     this.app.use(this.apiPaths.productos, require("../routes/productos"));
+    this.app.use(this.apiPaths.usuarios, require("../routes/usuario"));
+    this.app.use(this.apiPaths.auth, require("../routes/auth"));
   }
 
   listen() {

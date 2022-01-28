@@ -1,25 +1,26 @@
-const { DataTypes } = require("sequelize");
+const { Schema, model } = require("mongoose");
 
-const Tienda = require("./Tienda");
-
-const db = require("../database/conectionSql");
-
-const Producto = db.define("Producto", {
+const ProductoSchema = Schema({
   nombre: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "El nombre es obligatorio"],
   },
   descripcion: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "La descripcion es obligatorio"],
   },
   precio: {
-    type: DataTypes.FLOAT,
+    type: Number,
+    require: [true, "El precio es obligatorio"],
   },
   cantidad: {
-    type: DataTypes.INTEGER,
+    type: Number,
+    require: [true, "La cantidad es obligatorio"],
+  },
+  tienda: {
+    type: Schema.Types.ObjectId,
+    ref: "Tienda",
   },
 });
 
-Tienda.hasMany(Producto, { foreignKey: "tienda_id" });
-Producto.belongsTo(Tienda, { foreignKey: "tienda_id" });
-
-module.exports = Producto;
+module.exports = model("Producto", ProductoSchema);

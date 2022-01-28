@@ -1,28 +1,41 @@
-const { DataTypes } = require("sequelize");
+const { Schema, model } = require("mongoose");
 
-const db = require("../database/conectionSql");
-
-const Producto = require("./Productos");
-
-const Tienda = db.define("Tienda", {
+const TiendaSchema = Schema({
+  // usuario: {
+  //   type: String,
+  //   require: [true, "El usuario es obligatorio"],
+  // },
+  // password: {
+  //   type: String,
+  //   require: [true, "El password es obligatorio"],
+  // },
   nombre: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "El nombre es obligatorio"],
   },
   direccion: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "La direccion es obligatorio"],
   },
   referencia: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "La referencia es obligatorio"],
   },
   jefe: {
-    type: DataTypes.STRING,
+    type: String,
+    require: [true, "El jefe es obligatorio"],
   },
   estado: {
-    type: DataTypes.BOOLEAN,
+    type: Boolean,
+    require: [true, "El estado es obligatorio"],
   },
   img: {
-    type: DataTypes.STRING,
+    type: String,
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
   },
 });
 
-module.exports = Tienda;
+module.exports = model("Tienda", TiendaSchema);

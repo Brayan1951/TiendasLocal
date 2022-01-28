@@ -1,27 +1,35 @@
 const { request, response } = require("express");
-const Producto = require("../models/Productos");
 
 const Tienda = require("../models/Tienda");
 
 const getTiendas = async (req = request, res = response) => {
-  const tiendas = await Tienda.findAll({
-    include: [{ model: Producto }],
-  });
+  const tiendas = await Tienda.find();
 
-  // console.log(tiendas);
   res.json({ tiendas });
 };
 
 const createTienda = async (req = request, res = response) => {
-  const { nombre, direccion, referencia, jefe, img, estado = true } = req.body;
+  const {
+    // usuario,
+    // password,
+    nombre,
+    direccion,
+    referencia,
+    jefe,
+    img,
+    estado = true,
+  } = req.body;
   try {
     const data = {
+      // usuario,
+      // password,
       nombre,
       direccion,
       referencia,
       jefe,
       img,
       estado,
+      usuario: req.usuario,
     };
     const tiendadb = await Tienda.create(data);
     res.json(tiendadb);
@@ -38,14 +46,11 @@ const updateTienda = async (req = request, res = response) => {
   const { direccion, referencia } = req.body;
 
   try {
-    const tienda = await Tienda.findByPk(id);
-    if (!tienda) {
-      return res.status(400).json({
-        msg: "No existe una tienda con ese id" + id,
-      });
-    }
+    const tienda = await Tienda.findByIdAndUpdate(id, {
+      direccion,
+      referencia,
+    });
 
-    await tienda.update({ direccion, referencia });
     res.json({ tienda });
   } catch (error) {
     console.log(error);
@@ -59,14 +64,8 @@ const deleteTienda = async (req = request, res = response) => {
   const { id } = req.params;
 
   try {
-    const tienda = await Tienda.findByPk(id);
-    if (!tienda) {
-      return res.status(400).json({
-        msg: "No existe una tienda con ese id " + id,
-      });
-    }
+    const tienda = await Tienda.findByIdAndUpdate(id, { estado: false });
 
-    await tienda.update({ estado: false });
     res.json({ msg: "Tienda eliminada correctamente, id: " + id });
   } catch (error) {
     console.log(error);
