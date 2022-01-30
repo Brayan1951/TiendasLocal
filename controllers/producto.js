@@ -7,8 +7,15 @@ const getProductos = async (req = request, res = response) => {
   res.json({ productos });
 };
 
+const getProductoTienda = async (req = request, res = response) => {
+  const { tienda } = req.params;
+  const tiendas = await Producto.find({ tienda });
+  res.status(200).json({
+    tiendas,
+  });
+};
+
 const createProducto = async (req = request, res = response) => {
-  const nombre = req.body.nombre.toLowerCase();
   try {
     const data = {
       ...req.body,
@@ -56,6 +63,7 @@ const deleteProducto = async (req = request, res = response) => {
 
 module.exports = {
   getProductos,
+  getProductoTienda,
   createProducto,
   updateProducto,
   deleteProducto,

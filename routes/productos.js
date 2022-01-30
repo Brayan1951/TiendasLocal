@@ -5,12 +5,14 @@ const {
   createProducto,
   updateProducto,
   deleteProducto,
+  getProductoTienda,
 } = require("../controllers/producto");
 const { validarJWT, validarCampos } = require("../middlewares");
 
 const router = Router();
 
 router.get("/", getProductos);
+router.post("/:tienda", getProductoTienda);
 
 router.post(
   "/",
